@@ -3,22 +3,22 @@ let productDetailContainer=document.querySelector('.product-detail');
 let getId= new URLSearchParams(window.location.search).get('id');
   // Count
 let displayCount = ()=>{
-  let count = document.querySelector('.cart-count');
-  let cart =JSON.parse(localStorage.getItem("savedData")).length;
- if(cart > 0){
-    count.innerHTML=cart;
+let count = document.querySelector('.cart-count');
+  let cart =JSON.parse(localStorage.getItem("savedData")) ;
+  if(cart == null) return ;
+ if(cart.length > 0 ){
+    count.innerHTML=cart.length;
     count.style.display='inline-block'
  }else{
      count.style.display='none'
- }}
+ }
+}
 // display item
 let displayDetailItem = async()=>{
   displayCount();
 try{ let response = await axios.get(`https://fakestoreapi.com/products/${getId}`);
    let loader = document.querySelector('.loader').style.display='none';
    let data = response.data;
-   console.log(data);
-   
  productDetailContainer.innerHTML=` <div class="product-info-card">
      <div class="img-container"> <!-- Fixed spelling here -->
      <img src=${data.image} alt="">
